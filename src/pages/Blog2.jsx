@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { CalendarDays, User, MessageCircle, Send, Search } from "lucide-react";
 
-export default function Blog2Details() {
+export default function Blog2() {
   // Smooth scroll to top on component mount
   useEffect(() => {
     window.scrollTo({
