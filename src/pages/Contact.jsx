@@ -44,7 +44,7 @@ export default function ContactSection() {
       return;
     }
 
-    const phoneNumber = "8320116436"; // 🔥 CHANGE
+    const phoneNumber = "8320116436";
 
     const text = `Hello, I want to inquire about catering.
 
@@ -58,7 +58,6 @@ export default function ContactSection() {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
 
-    // ✅ Reset form
     setForm({
       name: "",
       email: "",
@@ -72,119 +71,124 @@ export default function ContactSection() {
   const handleChange = (field, value) => {
     setForm({ ...form, [field]: value });
 
-    // 🔥 LIVE VALIDATION (removes error instantly)
     setErrors((prev) => {
       let updated = { ...prev };
 
-      if (field === "name" && value.trim()) {
-        delete updated.name;
-      }
+      if (field === "name" && value.trim()) delete updated.name;
 
       if (field === "email") {
-        if (!value.trim()) {
-          updated.email = "Email is required";
-        } else if (!value.includes("@")) {
-          updated.email = "Must include @";
-        } else {
-          delete updated.email;
-        }
+        if (!value.trim()) updated.email = "Email is required";
+        else if (!value.includes("@")) updated.email = "Must include @";
+        else delete updated.email;
       }
 
-      if (field === "service" && value) {
-        delete updated.service;
-      }
+      if (field === "service" && value) delete updated.service;
 
       return updated;
     });
   };
 
   return (
-    <section className="py-32 px-6 bg-[#0b0b0b] text-white" id="contact">
-      <div className="max-w-3xl mx-auto">
+    <section className="py-20 px-6 bg-[#0b0b0b] text-white" id="contact">
+      <div className="max-w-6xl mx-auto">
+
         {/* HEADER */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <p className="uppercase tracking-[5px] text-[#D4A373] text-xs mb-3">
             Contact Us
           </p>
-
           <h2 className="text-4xl md:text-5xl font-semibold">
             Let’s Create Something Memorable
           </h2>
         </div>
 
-        <div className="space-y-8">
-          {/* NAME */}
-          <div>
-            <input
-              type="text"
-              autoComplete="off"
-              value={form.name}
-              onChange={(e) => handleChange("name", e.target.value)}
-              placeholder="Your Name *"
-              className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#D4A373]"
-            />
-            {errors.name && (
-              <p className="text-red-400 text-xs mt-1">{errors.name}</p>
-            )}
-          </div>
+        {/* MAIN GRID */}
+        <div className="grid md:grid-cols-2 gap-10 items-stretch">
 
-          {/* EMAIL */}
-          <div>
-            <input
-              type="email"
-              autoComplete="off"
-              value={form.email}
-              onChange={(e) => handleChange("email", e.target.value)}
-              placeholder="Email Address *"
-              className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#D4A373]"
-            />
-            {errors.email && (
-              <p className="text-red-400 text-xs mt-1">{errors.email}</p>
-            )}
-          </div>
+          {/* FORM */}
+          <div className="bg-[#111] p-8 rounded-2xl shadow-lg space-y-6">
 
-          {/* SERVICE */}
-          <div>
-            <select
-              value={form.service}
-              onChange={(e) => handleChange("service", e.target.value)}
-              className="w-full bg-transparent border-b border-white/20 py-4 outline-none text-white focus:border-[#D4A373]"
+            {/* NAME */}
+            <div>
+              <input
+                type="text"
+                value={form.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                placeholder="Your Name *"
+                className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-[#D4A373]"
+              />
+              {errors.name && (
+                <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+              )}
+            </div>
+
+            {/* EMAIL */}
+            <div>
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                placeholder="Email Address *"
+                className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-[#D4A373]"
+              />
+              {errors.email && (
+                <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+              )}
+            </div>
+
+            {/* SERVICE */}
+            <div>
+              <select
+                value={form.service}
+                onChange={(e) => handleChange("service", e.target.value)}
+                className="w-full bg-black border-b border-white/20 py-3 outline-none text-white focus:border-[#D4A373]"
+              >
+                <option value="">Select Service *</option>
+                <option>Wedding</option>
+                <option>Corporate</option>
+                <option>Convocation</option>
+                <option>Kitty Parties</option>
+                <option>Festivals</option>
+                <option>Associations</option>
+              </select>
+              {errors.service && (
+                <p className="text-red-400 text-xs mt-1">{errors.service}</p>
+              )}
+            </div>
+
+            {/* MESSAGE */}
+            <div>
+              <textarea
+                rows={4}
+                value={form.message}
+                onChange={(e) => handleChange("message", e.target.value)}
+                placeholder="Tell us about your event (optional)"
+                className="w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-[#D4A373]"
+              />
+            </div>
+
+            {/* BUTTON */}
+            <button
+              onClick={handleSubmit}
+              className="w-full mt-4 py-4 rounded-full bg-[#25D366] text-black font-medium hover:scale-[1.02] transition"
             >
-              <option value="" className="bg-black">
-                Select Service *
-              </option>
-              <option className="bg-black">Wedding</option>
-              <option className="bg-black">Corporate</option>
-              <option className="bg-black">Convocation</option>
-              <option className="bg-black">Kitty Parties</option>
-              <option className="bg-black">Festivals</option>
-              <option className="bg-black">Associations</option>
-            </select>
-            {errors.service && (
-              <p className="text-red-400 text-xs mt-1">{errors.service}</p>
-            )}
+              Send on WhatsApp
+            </button>
           </div>
 
-          {/* MESSAGE */}
-          <div>
-            <textarea
-              rows={4}
-              autoComplete="off"
-              value={form.message}
-              onChange={(e) => handleChange("message", e.target.value)}
-              placeholder="Tell us about your event (optional)"
-              className="w-full bg-transparent border-b border-white/20 py-4 outline-none focus:border-[#D4A373]"
-            />
+          {/* MAP */}
+          <div className="rounded-2xl overflow-hidden shadow-lg min-h-[400px]">
+            <iframe
+              title="Ruchi Caterers Location"
+              src="https://www.google.com/maps?q=Ruchi%20Caterers%20XIII/1B,%20KARUNAKARAN%20ROAD,%20Akkikkavu,%20Thrissur,%20Akathiyoor,%20Kerala%20680519&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
           </div>
 
-          {/* BUTTON */}
-          <button
-            onClick={handleSubmit}
-            className="w-full mt-6 py-4 rounded-full bg-[#25D366] text-black font-medium 
-                       hover:scale-[1.02] transition"
-          >
-            Send on WhatsApp
-          </button>
         </div>
       </div>
     </section>
