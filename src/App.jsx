@@ -35,13 +35,13 @@ import Team from "./pages/Team";
 import BlogPage from "./pages/Blog";
 
 // ✅ BLOG DETAILS PAGES
-import Blog1 from "./pages/blog1";
-import Blog2 from "./pages/blog2";
-import Blog3 from "./pages/blog3";
-import Blog4 from "./pages/blog4";
-import Blog5 from "./pages/blog5";
-import Blog6 from "./pages/blog6";
-import Blog7 from "./pages/blog7";
+import Blog1 from "./pages/Blog1";
+import Blog2 from "./pages/Blog2";
+import Blog3 from "./pages/Blog3";
+import Blog4 from "./pages/Blog4";
+import Blog5 from "./pages/Blog5";
+import Blog6 from "./pages/Blog6";
+import Blog7 from "./pages/Blog7";
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
